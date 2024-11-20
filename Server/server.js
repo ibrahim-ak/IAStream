@@ -3,9 +3,9 @@ const app = express();
 const cors = require('cors')
 require('dotenv').config();
 const port = process.env.PORT;
-require('./configs/mongoose.config'); // This is new
+require('./configs/movie.config'); 
 app.use(cors());
-app.use(express.json()); // This is new
-app.use(express.urlencoded({ extended: true })); // This is new
-require('./routes/Author.route')(app);
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
+require('./routes/Author.route')(app); // here to add you route directory 
 app.listen(port, () => console.log(`Listening on port: ${port}`));
