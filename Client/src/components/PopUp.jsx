@@ -2,6 +2,7 @@ import React from "react";
 import Button from "./Button";
 import { GoChevronRight } from 'react-icons/go';
 import { GrFormClose } from "react-icons/gr";
+import { Link } from 'react-router-dom';
 
 const PopUp = ({serial, iconSrc, bgSrc, name, year, mature, category, type, description, OnClose}) => {
   return (
@@ -32,7 +33,7 @@ const PopUp = ({serial, iconSrc, bgSrc, name, year, mature, category, type, desc
             <div className="pt-4 text-lg h-[100px]">{description}</div>
           
           <div className="pt-4">
-          <Button title="Get Started" classBtn={'px-6 py-2 bg-red-600 font-semibold text-xl hover:bg-red-700 transition-all duration-500 gap-2'} RightIcon={<GoChevronRight size={32} />} />
+          <Link to={'/signup'}><Button title="Get Started" classBtn={'px-6 py-2 bg-red-600 font-semibold text-xl hover:bg-red-700 transition-all duration-500 gap-2'} RightIcon={<GoChevronRight size={32} />} /></Link>
           <p>Create or restart your membership</p>
           </div>
       </div>

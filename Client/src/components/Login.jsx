@@ -1,5 +1,6 @@
 import React from "react";
 import LoginImage from '../assets/icons/LoginImage.jpg';
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -28,7 +29,7 @@ const Login = () => {
               <input type="checkbox" className="w-4" /> <p className="text-sm">Remeber me</p>
             </div>
 
-            <p className="text-sm opacity-90 my-5">New to IAStream? <span className="font-semibold opacity-100 cursor-pointer">Sign up now.</span></p>
+            <p className="text-sm opacity-90 my-5">New to IAStream? <Link to={'/signup'}><span className="font-semibold opacity-100 cursor-pointer">Sign up now.</span></Link></p>
 
             <p className="text-l_sm">This page is protected by Google reCAPTCHA to ensure you're not a bot. <span className="text-blue-500">Learn more.</span></p>
           </div>
