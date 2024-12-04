@@ -1,6 +1,7 @@
 import React from "react";
 import Button from './Button';
 import { GoChevronRight } from 'react-icons/go';
+import { Link } from "react-router-dom";
 
 const NewsLetter = () => {
   return (
@@ -14,7 +15,7 @@ const NewsLetter = () => {
         <div>
           <input type="email" placeholder="Email Address" className="bg-bgBlack border border-1 border-borderBlack rounded-full py-4 pl-6 placeholder-gray-500 w-96 sm:w-72" />
         </div>
-        <Button title="Get Started" classBtn={'px-6 py-2 bg-red-600 font-semibold text-xl hover:bg-red-700 transition-all duration-500 gap-2'} RightIcon={<GoChevronRight size={32} />} />
+        <Link to={'/signup'}><Button title="Get Started" classBtn={'px-6 py-2 bg-red-600 font-semibold text-xl hover:bg-red-700 transition-all duration-500 gap-2'} RightIcon={<GoChevronRight size={32} />} /></Link>
       </div>
     </div>
 

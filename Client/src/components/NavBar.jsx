@@ -1,7 +1,8 @@
 import React from "react";
 import Button from './Button';
+import { Link } from "react-router-dom";
 
-const SignUpNav = () => {
+const NavBar = () => {
   return (
     <div className="overflow-x-hidden p-6 flex justify-between items-center">
       <div className="bg-white text-black">
@@ -15,11 +16,11 @@ const SignUpNav = () => {
         </select>
         </div>
         <div>
-        <Button title="Sign In" classBtn={'px-4 py-1 bg-white text-black font-semibold text-sm hover:bg-gray-300 transition-all duraiton-500'} />
+       <Link to={'/signin'}><Button title="Sign In" classBtn={'px-4 py-1 bg-white text-black font-semibold text-sm hover:bg-gray-300 transition-all duraiton-500'} /></Link> 
         </div>
       </div>
     </div>
   )
 }
 
-export default SignUpNav;
+export default NavBar;
