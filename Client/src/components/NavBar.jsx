@@ -1,12 +1,15 @@
 import React from "react";
 import Button from './Button';
 import { Link } from "react-router-dom";
+import IA from '../assets/icons/IA';
+import IASTREAM from "../assets/icons/IASTREAM";
 
 const NavBar = () => {
   return (
-    <div className="overflow-x-hidden p-6 flex justify-between items-center">
-      <div className="bg-white text-black">
-        Logo
+    <div className="overflow-x-hidden p-6 pl-8 flex justify-between items-center">
+      <div>
+        <div className="w-12 md:hidden"><IA /></div>
+        <div className="hidden md:block w-32"><IASTREAM /></div>
       </div>
       <div className="flex gap-3 justify-center items-center">
         <div>

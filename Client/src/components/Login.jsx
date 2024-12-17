@@ -1,14 +1,19 @@
 import React from "react";
 import LoginImage from '../assets/icons/LoginImage.jpg';
 import { Link } from "react-router-dom";
+import IA from "../assets/icons/IA";
+import IASTREAM from "../assets/icons/IASTREAM";
 
 const Login = () => {
   return (
     <div>
 
       <div className="relative">
-        <div className="hidden sm:block absolute top-5 left-10 bg-white text-black w-[50px] h-[50px]">
-          Logo
+        <div className="hidden sm:block absolute top-5 left-10">
+        <div>
+        <div className="w-12 md:hidden"><IA /></div>
+        <div className="hidden md:block w-32"><IASTREAM /></div>
+      </div>
         </div>
 
         <img className="hidden sm:block sm:min-h-screen sm:object-cover sm:bg-center sm:bg-black sm:inset-0" src={LoginImage} alt={"Login Page Image"} />
