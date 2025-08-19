@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 
 // Directory modules import
-const router = require('./routes/movie.routes.js');
+const router = require('./routes/index.js');
 const env = require("./configs/env.js");
 
 // Environment value
@@ -20,7 +20,7 @@ const app = express();
 app.use(cors());
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
-app.use('/api/movies', router);
+app.use('/api', router);
 
 
 // Server connection
