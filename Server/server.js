@@ -14,6 +14,7 @@ const port = env.PORT;
 const username = env.DB_USERNAME;
 const pw = env.DB_PASSWORD;
 const DB = env.DB_NAME;
+const allowed_origin = env.ALLOWED_ORIGIN;
 
 // the uri is dynamic you need to change with yours
 const uri = `mongodb+srv://${username}:${pw}@iastreamdb.yi3hnzj.mongodb.net/${DB}?retryWrites=true&w=majority&appName=IAStreamDB`;
@@ -29,10 +30,14 @@ require('./configs/db.js');
 // Server 
 const app = express();
 
-
 // Middlewares
 app.use(pinoLogger);
-app.use(cors());
+app.use(cors({
+  origin: allowed_origin.split(","),
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTION"],
+  credentials: true
+}));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', router);
