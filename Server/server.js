@@ -30,7 +30,6 @@ require('./configs/db.js');
 // Server 
 const app = express();
 
-
 // Middlewares
 app.use(pinoLogger);
 app.use(cors({
