@@ -1,13 +1,13 @@
 // Important modules import
 const express = require('express');
 const cors = require('cors');
-const pinoHttp = require("pino-http");
 
 // Directory modules import
 const router = require('./routes/index.js');
 const env = require("./configs/env.js");
 const logger = require("./utils/logger.js");
 const connectDB = require('./configs/db.js');
+const pinoLogger = require("./middleware/logger.js");
 
 // Environment value
 const port = env.PORT;
@@ -18,11 +18,6 @@ const allowed_origin = env.ALLOWED_ORIGIN;
 
 // the uri is dynamic you need to change with yours
 const uri = `mongodb+srv://${username}:${pw}@iastreamdb.yi3hnzj.mongodb.net/${DB}?retryWrites=true&w=majority&appName=IAStreamDB`;
-
-// API Logging
-const pinoLogger = pinoHttp({
-  logger
-});
 
 // Database access
 require('./configs/db.js');
