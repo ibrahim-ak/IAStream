@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const logger = require("./logger");
 
 const throwCustomError = (statusCode, message) => {
-  const error = new Error(message);
-  error.statusCode = statusCode;
-  throw error;
+  const err = new Error(message);
+  err.statusCode = statusCode;
+  throw err;
 }
 
 const showError = (err, res) => {
@@ -18,8 +18,10 @@ const showError = (err, res) => {
     return res.status(400).json({ message: `Database Cast Error: ${err.message}`});
   }
 
-  if (typeof err === "object" && err !== null && "message" in err) {
-    return res.status(500).json({ message: err.message });
+  if (typeof err === "object" && err !== null && "message" in err && err instanceof Error) {
+    const error = new Error(err.message);
+    const statusCode = err.statusCode || 500;
+    return res.status(statusCode).json({ message: error.message });
   }
 
   return res.status(500).json({ error: "Internal Server Error!"});

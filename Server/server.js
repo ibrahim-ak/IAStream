@@ -8,6 +8,7 @@ const env = require("./configs/env.js");
 const logger = require("./utils/logger.js");
 const connectDB = require('./configs/db.js');
 const pinoLogger = require("./middleware/logger.js");
+const errorHandler = require("./middleware/error.js");
 
 // Environment value
 const port = env.PORT;
@@ -36,6 +37,7 @@ app.use(cors({
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', router);
+app.use(errorHandler);
 
 // Server connection
 app.listen(port, async () => {
