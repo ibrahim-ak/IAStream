@@ -2,7 +2,7 @@ const Movie = require('../../modules/movie/index.js');
 
 // @desc    Create a movie
 // @route   POST /api/movies/:id
-const postMovie = async (req, res) => {
+const postMovie = async (req, res, next) => {
   try {
     const addMovie = await Movie.create(req.body);
 
@@ -14,7 +14,7 @@ const postMovie = async (req, res) => {
     console.log("Movie Added");
   }
   catch (err) {
-    console.log(err.message);
+    next(err);
   }
 }
 

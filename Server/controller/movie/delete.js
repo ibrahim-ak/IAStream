@@ -2,7 +2,7 @@ const Movie = require('../../modules/movie/index.js');
 
 // @desc    Delete a movie
 // @route   DELETE /api/movies/:id
-const deleteMovie = async (req, res) => {
+const deleteMovie = async (req, res, next) => {
   try {
     const { id } = req.params;
     const findMovie = await Movie.findByIdAndDelete(id);
@@ -15,7 +15,7 @@ const deleteMovie = async (req, res) => {
     console.log("Movie Deleted");
   }
   catch (err) {
-    console.log(err.message);
+    next(err);
   }
 }
 

@@ -2,7 +2,7 @@ const Movie = require('../../modules/movie/index.js');
 
 // @desc    GET single movies
 // @route   GET /api/movies/:id
-const getMovie = async (req, res) => {
+const getMovie = async (req, res, next) => {
   try {
     const { id } = req.params;
     const singleMovie = await Movie.findById(id);
@@ -15,7 +15,7 @@ const getMovie = async (req, res) => {
   }
   catch (err) 
   {
-    console.log(err.message);
+    next(err);
   }
 }
 

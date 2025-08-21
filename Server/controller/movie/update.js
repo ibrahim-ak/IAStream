@@ -2,7 +2,7 @@ const Movie = require('../../modules/movie/index.js');
 
 // @desc    Update a movie
 // @route   PUT /api/movies/:id
-const updateMovie = async (req, res) => {
+const updateMovie = async (req, res, next) => {
   try {
     const { id } = req.params;
     const findMovie = await Movie.findByIdAndUpdate(id, req.body);
@@ -16,7 +16,7 @@ const updateMovie = async (req, res) => {
   }
   catch (err)
   {
-    console.log(err.message);
+    next(err);
   }
 }
 
