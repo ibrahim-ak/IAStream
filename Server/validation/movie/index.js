@@ -1,4 +1,4 @@
-export const createMovieSchema = {
+const createMovieSchema = {
   // Title Validation
   title: {
     notEmpty: {
@@ -82,3 +82,5 @@ export const createMovieSchema = {
     }
   }
 }
+
+module.exports = createMovieSchema;
