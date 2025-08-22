@@ -7,7 +7,9 @@ const {
   DB_NAME,
   DB_USERNAME,
   DB_PASSWORD,
-  ALLOWED_ORIGIN
+  ALLOWED_ORIGIN,
+  NODE_ENV,
+  JWT_SECRET
 } = process.env;
 
 
@@ -31,12 +33,22 @@ if (!ALLOWED_ORIGIN) {
   throw new Error("ALLOWED_ORIGIN is not set");
 }
 
+if (!NODE_ENV) {
+  throw new Error("NODE_ENV is not set");
+}
+
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET is not set");
+}
+
 const config = {
   PORT: PORT,
   DB_NAME: DB_NAME,
   DB_USERNAME: DB_USERNAME,
   DB_PASSWORD: DB_PASSWORD,
-  ALLOWED_ORIGIN: ALLOWED_ORIGIN
+  ALLOWED_ORIGIN: ALLOWED_ORIGIN,
+  NODE_ENV: NODE_ENV,
+  JWT_SECRET: JWT_SECRET
 }
 
 module.exports = config;
