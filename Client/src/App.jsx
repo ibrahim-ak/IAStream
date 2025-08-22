@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import SignInPage from './page/SignInPage';
-import LandPage from './page/LandPage';
-import SignUpPage from './page/SignUpPage';
+import SignInPage from './page/signin/index';
+import LandPage from './page/land/index';
+import SignUpPage from './page/signup/index';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
 
