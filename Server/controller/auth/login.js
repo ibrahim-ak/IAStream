@@ -23,9 +23,9 @@ const signin = async (req, res, next) => {
       return throwCustomError(400, "Invalid password");
     }
 
-    const data = createToken(user._id);
+    const token = createToken(user._id);
 
-    res.status(200).json({ message: "Login Successfully!", data: data});
+    res.status(200).json({ message: "Login Successfully!", data: token});
   }
   catch (err) {
     next(err);
