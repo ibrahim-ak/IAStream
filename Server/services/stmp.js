@@ -1,5 +1,9 @@
 const nodemailer = require("nodemailer");
 const env = require("../configs/env.js");
+const fs = require("fs");
+const path = require("path");
+const ejs = require("ejs");
+const logger = require("../utils/logger.js");
 
 const transporter = nodemailer.createTransport({
   service: env.STMP.SERVICE,
@@ -9,11 +13,19 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-const sendMail = async () => {
+const sendMail = async (to, template, subject, context) => {
+  const templatePath = path.join(__dirname, "..", "view", `${template}.ejs`);
+  const temp = fs.readFileSync(templatePath, "utf-8");
+  const html = ejs.render(temp, context);
+
   const info = await transporter.sendMail({
-    from: "IAStream <iastream47@gmail.com>",
-    to: "",
-    subject: "",
-    html: "",
+    from: `${env.STMP.NAME} <${env.STMP.EMAIL}>`,
+    to: to,
+    subject: subject,
+    html: html,
   })
+  
+  logger.info("Sending Message: " + info.messageId);
 }
+
+module.exports = sendMail;

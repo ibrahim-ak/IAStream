@@ -13,6 +13,8 @@ const {
   GMAIL_USER,
   GMAIL_PASS,
   GMAIL_SERVICE,
+  GMAIL_EMAIL,
+  GMAIL_NAME
 } = process.env;
 
 
@@ -56,6 +58,14 @@ if (!GMAIL_SERVICE) {
   throw new Error("GMAIL_SERVICE is not set");
 }
 
+if (!GMAIL_NAME) {
+  throw new Error("GMAIL_NAME is not set");
+}
+
+if (!GMAIL_EMAIL) {
+  throw new Error("GMAIL_EMAIL is not set");
+}
+
 const config = {
   PORT: PORT,
   DB_NAME: DB_NAME,
@@ -67,7 +77,9 @@ const config = {
   STMP: {
     SERVICE: GMAIL_SERVICE,
     USER: GMAIL_USER,
-    PASS: GMAIL_PASS
+    PASS: GMAIL_PASS,
+    EMAIL: GMAIL_EMAIL,
+    NAME: GMAIL_NAME
   }
 }
 
