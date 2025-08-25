@@ -9,7 +9,9 @@ const {
   DB_PASSWORD,
   ALLOWED_ORIGIN,
   NODE_ENV,
-  JWT_SECRET
+  JWT_SECRET,
+  GMAIL_USER,
+  GMAIL_PASS
 } = process.env;
 
 
@@ -41,6 +43,14 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET is not set");
 }
 
+if (!GMAIL_USER) {
+  throw new Error("GMAIL_USER is not set");
+}
+
+if (!GMAIL_PASS) {
+  throw new Error("GMAIL_PASS is not set");
+}
+
 const config = {
   PORT: PORT,
   DB_NAME: DB_NAME,
@@ -48,7 +58,11 @@ const config = {
   DB_PASSWORD: DB_PASSWORD,
   ALLOWED_ORIGIN: ALLOWED_ORIGIN,
   NODE_ENV: NODE_ENV,
-  JWT_SECRET: JWT_SECRET
+  JWT_SECRET: JWT_SECRET,
+  STMP: {
+    USER: GMAIL_USER,
+    PASS: GMAIL_PASS
+  }
 }
 
 module.exports = config;
