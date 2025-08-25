@@ -11,7 +11,8 @@ const {
   NODE_ENV,
   JWT_SECRET,
   GMAIL_USER,
-  GMAIL_PASS
+  GMAIL_PASS,
+  GMAIL_SERVICE,
 } = process.env;
 
 
@@ -51,6 +52,10 @@ if (!GMAIL_PASS) {
   throw new Error("GMAIL_PASS is not set");
 }
 
+if (!GMAIL_SERVICE) {
+  throw new Error("GMAIL_SERVICE is not set");
+}
+
 const config = {
   PORT: PORT,
   DB_NAME: DB_NAME,
@@ -60,6 +65,7 @@ const config = {
   NODE_ENV: NODE_ENV,
   JWT_SECRET: JWT_SECRET,
   STMP: {
+    SERVICE: GMAIL_SERVICE,
     USER: GMAIL_USER,
     PASS: GMAIL_PASS
   }

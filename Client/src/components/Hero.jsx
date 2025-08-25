@@ -2,44 +2,22 @@ import hero from "../assets/icons/hero.mp4";
 import { useRef, useState } from "react";
 
 const Hero = () => {
-  const bgVideoRef = useRef(null);
   const fgVideoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlayPause = () => {
     if (isPlaying) {
-      bgVideoRef.current.pause();
       fgVideoRef.current.pause();
     } else {
-      // Play both videos and sync their currentTime
-      const currentTime = Math.max(
-      bgVideoRef.current.currentTime,
-      fgVideoRef.current.currentTime
-      );
-      bgVideoRef.current.currentTime = currentTime;
-      fgVideoRef.current.currentTime = currentTime;
-      bgVideoRef.current.play();
       fgVideoRef.current.play();
     }
     setIsPlaying(!isPlaying);
   };
 
   return (
-    <div className="relative my-10">
-      <video
-        ref={bgVideoRef}
-        alt="Hero Image"
-        className="w-full h-[500px] object-center filter blur-lg"
-        autoPlay
-        loop
-        playsInline
-        muted
-      >
-        <source src={hero} type="video/mp4" />
-        Your browser does not support the video tag
-      </video>
+    <div className="relative my-10 w-full h-[500px]">
 
-      <div className="absolute inset-0 p-10 sm:p-8 md:p-6 lg:p-4 flex justify-center flex">
+      <div className="absolute inset-0 p-5 sm:p-8 md:p-6 lg:px-4 lg:py-2 flex justify-center flex">
         <video
           ref={fgVideoRef}
           autoPlay
