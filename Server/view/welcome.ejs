@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to IAStream</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+        .container {
+            max-width: 450px;
+            margin: 40px auto;
+        }
+        p {
+            font-size:19px;
+        }
+        .title {
+            font-size: 40px;
+            line-height: 60px;
+            margin: 0;
+        }
+        .title-message {
+            margin: 0;
+            font-size: 17px;
+            color: rgb(85, 85, 85);
+            
+        } 
+        .link-name {
+            color: rgb(5, 69, 153);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .user-detail {
+            background-color: rgb(223, 223, 223);
+            padding: 10px 20px;
+        }
+
+        .user-detail p {
+            font-size: 15px;
+        }
+        .footer p {
+            font-size: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="title">Welcome to the IAStream</p>
+        <p class="title-message">Excited to have on board. Let's get you up and running fast.</p>
+        <p>Now access all your service from anywhere and across any devices</p>
+
+        <p>Here are your Login details:</p>
+
+        <div class="user-detail">
+            <p>Web Address: <span class="link-name">localhost:3000</span></p>
+            <p>Username: <span class="link-name"><%= email %></span></p>
+        </div>
+        <div>
+            <p>Thank you for joining, we hope you happy time!</p>
+        </div>
+
+        <div class="footer">
+            <p>If you have any doubts, don't hesitate we are there. Write to us on - <span class="link-name">iastream47@gmail.com</span></p>
+        </div>
+    </div>
+</body>
+</html>
