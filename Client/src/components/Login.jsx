@@ -1,5 +1,4 @@
 import LoginImage from '../assets/icons/LoginImage.jpg';
-import { Link } from "react-router-dom";
 import IA from "../assets/icons/IA";
 import IASTREAM from "../assets/icons/IASTREAM";
 
@@ -26,14 +25,12 @@ const Login = () => {
             <input type="password" placeholder="Password" className="border border-white text-md pl-3 py-3 rounded-md placeholder-white bg-faqBlack bg-opacity-90 my-3" />
 
             <button className="rounded-md bg-red-600 text-lg font-semibold py-2 hover:bg-red-700 transition-all duration-500">Sign In</button>
-            <p className="text-center my-3">OR</p>
-            <button className="text-md font-semibold py-2 bg-borderBlack opacity-80 rounded-md">Use a sign-in code</button>
-            <p className="text-center mt-4 text-sm">Forgot Password?</p>
+            <p className="text-center mt-4 text-sm cursor-pointer"><a href='/forgot'>Forgot Password?</a></p>
             <div className="flex gap-2 mt-5">
               <input type="checkbox" className="w-4" /> <p className="text-sm">Remeber me</p>
             </div>
 
-            <p className="text-sm opacity-90 my-5">New to IAStream? <Link to={'/signup'}><span className="font-semibold opacity-100 cursor-pointer">Sign up now.</span></Link></p>
+            <p className="text-sm opacity-90 my-5">New to IAStream? <a href={'/signup'}><span className="font-semibold opacity-100 cursor-pointer">Sign up now.</span></a></p>
 
             <p className="text-l_sm">This page is protected by Google reCAPTCHA to ensure you&apos;re not a bot. <span className="text-blue-500">Learn more.</span></p>
           </div>
