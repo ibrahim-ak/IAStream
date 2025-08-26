@@ -1,14 +1,25 @@
 const swaggerJSDoc = require('swagger-jsdoc');
-const env = require('../configs/env');
+const env = require('./configs/env');
 
 const swaggerOptions = {
   definition: {
-    openai: "3.0.0",
+    openapi: "3.0.0",
     info: {
       title: "IAStream API",
       version: "1.0.0",
       description: "An Express API with Swagger Documentation"
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+        }
+      }
+    },
+    security: [{
+      bearerAuth: [],
+    }],
     servers: [
       {
         url: `http://localhost:${env.PORT}`,
@@ -16,7 +27,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ["../routes/*.js", "../controller/*.js", "../app.js"],
+  apis: ["./server.js", "./routes/**/*.js", "./controller/**/*.js"],
 }
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);

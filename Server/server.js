@@ -10,7 +10,7 @@ const logger = require("./utils/logger.js");
 const connectDB = require("./configs/db.js");
 const pinoLogger = require("./middleware/logger.js");
 const errorHandler = require("./middleware/error.js");
-const swaggerSpec = require("./utils/swagger.js");
+const swaggerSpec = require("./swagger.js");
 
 // Environment value
 const port = env.PORT;
@@ -40,14 +40,48 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api", router);
 app.use(errorHandler);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.get("/", (req, res) => {
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Root endpoint that returns OK message
+ *     responses:
+ *       200:
+ *         description: Returns OK message
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: OK
+ */
+app.get("/", (_req, res) => {
   res.status(200).json({ message: "OK"});
-})
+});
 
+/**
+ * @swagger
+ * /health-check:
+ *   get:
+ *     summary: Health check endpoint
+ *     responses:
+ *       200:
+ *         description: Returns Good message
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Good!
+ */
 app.get("/health-check", (req, res) => {
   res.status(200).json({ message: "Good!"});
 });
