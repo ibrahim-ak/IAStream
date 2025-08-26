@@ -7,24 +7,25 @@ const deleteV1 = async (req, res, next) => {
   transaction.startTransaction();
   try {
     const { userId } = req.user;
-    const { movieId } = req.params;
-    const { reviewId } = req.body;
+    const { movieId, reviewId } = req.params;
 
     if (!userId && !movieId) {
       return throwCustomError(400, "Invalid Credential");
     }
 
-    const review = await Review.findOne({ user_id: userId, movie_id: movieId, _id: reviewId});
+    const review = await Review.findOne({ user_id: userId, movie_id: movieId, _id: reviewId}, { session: transaction });
 
     if (!review) {
       return throwCustomError(404, "Cannot find the review");
     }
 
-    const deleteReview = await Review.findByIdAndDelete(reviewId);
+    const deleteReview = await Review.findByIdAndDelete(reviewId, {session: transaction});
 
     if (!deleteReview) {
       return throwCustomError(400, "Something went wrong! Cannot delete the review");
     }
+
+    transaction.commitTransaction();
 
     res.status(204).send();
   }

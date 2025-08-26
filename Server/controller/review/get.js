@@ -13,19 +13,24 @@ const getV1 = async (req, res, next) => {
       return throwCustomError(400, "Invalid Crendential");
     }
 
-    const reviews = await Review.findOne({ user_id: userId, movie_id: movieId });
+    const reviews = await Review.findOne({ user_id: userId, movie_id: movieId }, { session: transaction });
 
     if (!reviews) {
       return throwCustomError(404, "Cannot find the review!");
     }
 
+    transaction.commitTransaction();
+
     res.status(200).json({ message: "Reviews Fetched Successfully!", data: reviews});
 
   }
   catch (err) {
+    transaction.abortTransaction();
     next(err);
   }
   finally {
-
+    transaction.endSession();
   }
 }
+
+module.exports = getV1;
