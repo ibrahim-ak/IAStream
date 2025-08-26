@@ -10,7 +10,7 @@ const ReviewSchema = mongoose.Schema(
     type: mongoose.Types.ObjectId,
     ref: "Movie"
   },
-  body: {
+  content: {
     type: String,
     required: true,
   }
