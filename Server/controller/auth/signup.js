@@ -14,7 +14,7 @@ const register = async (req, res, next) => {
 
     const { name, email, phone, password } = req.body;
 
-    const existUser = await User.findOne({ email: email });
+    const existUser = await User.findOne({ email: email }, {session: transaction});
 
     if (existUser) {
       return throwCustomError(400, "Email already registered! Please signin");
@@ -22,7 +22,7 @@ const register = async (req, res, next) => {
 
     const hash = hashPassword(password);
 
-    const user = await User.create({ name, email, phone, password: hash });
+    const user = await User.create({ name, email, phone, password: hash }, {session: transaction});
 
     if (!user) {
       return throwCustomError(400, "Something went wrong! Cannot create user");
@@ -34,7 +34,8 @@ const register = async (req, res, next) => {
       user_id: user._id, 
       otp: otp_string,
       expireAt: new Date(Date.now() + 1000 * 60 * 10) // 10 minutes from now
-    });
+    }
+    , {session: transaction});
 
     if (!otp) {
       return throwCustomError(400, "Something went wrong! OTP is not created");
@@ -78,7 +79,7 @@ const verifyOTP = async (req, res, next) => {
       return throwCustomError(400, "OTP is required");
     }
 
-    const validOTP = await OTP.findOne({ otp });
+    const validOTP = await OTP.findOne({ otp }, {session: transaction});
 
     if (!validOTP) {
       return throwCustomError(400, "Invalid OTP");
@@ -88,7 +89,7 @@ const verifyOTP = async (req, res, next) => {
       return throwCustomError(400, "OTP expires");
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }, {session: transaction});
 
     if (!user) {
       return throwCustomError(404, "Email record not found!");
@@ -101,7 +102,7 @@ const verifyOTP = async (req, res, next) => {
     user.isVerify = true;
     await user.save();
 
-    const deleteOTP = await OTP.findOneAndDelete({ otp });
+    const deleteOTP = await OTP.findOneAndDelete({ otp }, {session: transaction});
 
     if (!deleteOTP) {
       return throwCustomError(400, "Something went wrong! Cannot delete the otp");
