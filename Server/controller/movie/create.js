@@ -1,4 +1,4 @@
-const Movie = require('../../modules/movie/index.js');
+const Movie = require("../../modules/movie/index.js");
 const { throwCustomError } = require("../../utils/error.js");
 
 // @desc    Create a movie
@@ -11,12 +11,11 @@ const postMovie = async (req, res, next) => {
       return throwCustomError(400, "Cannot Create a new Movie");
     }
 
-    res.status(201).json({message: "Movie Detail has Created Successfully"});
+    res.status(201).json({ message: "Movie Detail has Created Successfully" });
     console.log("Movie Added");
-  }
-  catch (err) {
+  } catch (err) {
     next(err);
   }
-}
+};
 
 module.exports = postMovie;

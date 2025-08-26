@@ -1,12 +1,12 @@
 // Important modules import
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 
 // Directory modules import
-const router = require('./routes/index.js');
+const router = require("./routes/index.js");
 const env = require("./configs/env.js");
 const logger = require("./utils/logger.js");
-const connectDB = require('./configs/db.js');
+const connectDB = require("./configs/db.js");
 const pinoLogger = require("./middleware/logger.js");
 const errorHandler = require("./middleware/error.js");
 
@@ -21,26 +21,28 @@ const allowed_origin = env.ALLOWED_ORIGIN;
 const uri = `mongodb+srv://${username}:${pw}@iastreamdb.yi3hnzj.mongodb.net/${DB}?retryWrites=true&w=majority&appName=IAStreamDB`;
 
 // Database access
-require('./configs/db.js');
+require("./configs/db.js");
 
-// Server 
+// Server
 const app = express();
 
 // Middlewares
 app.use(pinoLogger);
-app.use(cors({
-  origin: allowed_origin.split(","),
-  allowedHeaders: ["Content-Type", "Authorization"],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTION"],
-  credentials: true
-}));
-app.use(express.json()); 
+app.use(
+  cors({
+    origin: allowed_origin.split(","),
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTION"],
+    credentials: true,
+  }),
+);
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api', router);
+app.use("/api", router);
 app.use(errorHandler);
 
 // Server connection
 app.listen(port, async () => {
   await connectDB(uri);
-  logger.info(`Listening on port: ${port}`)
+  logger.info(`Listening on port: ${port}`);
 });

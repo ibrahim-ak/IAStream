@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const MovieSchema = mongoose.Schema(
   {
@@ -25,13 +25,13 @@ const MovieSchema = mongoose.Schema(
     categories: {
       type: Array,
       required: true,
-    }
+    },
   },
   {
     timestamps: true,
-  }
-)
+  },
+);
 
-const Movie = mongoose.model('movie', MovieSchema);
+const Movie = mongoose.model("movie", MovieSchema);
 
 module.exports = Movie;

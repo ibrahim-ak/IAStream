@@ -10,16 +10,18 @@ const getSingleUser = async (req, res, next) => {
     }
 
     const user = await User.findById(id);
-    
+
     if (!user) {
-      return throwCustomError(404, "Something went wrong! Cannot fetch the user!");
+      return throwCustomError(
+        404,
+        "Something went wrong! Cannot fetch the user!",
+      );
     }
 
-    res.status(200).json({ message: "User fetched Successfully!", data: user});
-  }
-  catch (err) {
+    res.status(200).json({ message: "User fetched Successfully!", data: user });
+  } catch (err) {
     next(err);
   }
-}
+};
 
 module.exports = getSingleUser;

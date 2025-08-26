@@ -14,7 +14,10 @@ const register = async (req, res, next) => {
 
     const { name, email, phone, password } = req.body;
 
-    const existUser = await User.findOne({ email: email }, {session: transaction});
+    const existUser = await User.findOne(
+      { email: email },
+      { session: transaction },
+    );
 
     if (existUser) {
       return throwCustomError(400, "Email already registered! Please signin");
@@ -22,20 +25,25 @@ const register = async (req, res, next) => {
 
     const hash = hashPassword(password);
 
-    const user = await User.create({ name, email, phone, password: hash }, {session: transaction});
+    const user = await User.create(
+      { name, email, phone, password: hash },
+      { session: transaction },
+    );
 
     if (!user) {
       return throwCustomError(400, "Something went wrong! Cannot create user");
     }
-    
+
     const otp_string = generateOTP();
-  
-    const otp = await OTP.create({ 
-      user_id: user._id, 
-      otp: otp_string,
-      expireAt: new Date(Date.now() + 1000 * 60 * 10) // 10 minutes from now
-    }
-    , {session: transaction});
+
+    const otp = await OTP.create(
+      {
+        user_id: user._id,
+        otp: otp_string,
+        expireAt: new Date(Date.now() + 1000 * 60 * 10), // 10 minutes from now
+      },
+      { session: transaction },
+    );
 
     if (!otp) {
       return throwCustomError(400, "Something went wrong! OTP is not created");
@@ -43,26 +51,25 @@ const register = async (req, res, next) => {
 
     await transaction.commitTransaction();
 
-    await sendMail(
-      user.email, 
-      "auth/signup", 
-      "Verify Your Email", 
-      {
-        name: user.name,
-        otp: otp_string, 
-        email: user.email
-      }
-    );
+    await sendMail(user.email, "auth/signup", "Verify Your Email", {
+      name: user.name,
+      otp: otp_string,
+      email: user.email,
+    });
 
-    res.status(201).json({ message: "SignUp is successfully! Please check your email for verification",});
-  }
-  catch (err) {
+    res
+      .status(201)
+      .json({
+        message:
+          "SignUp is successfully! Please check your email for verification",
+      });
+  } catch (err) {
     transaction.abortTransaction();
     next(err);
   } finally {
     transaction.endSession();
   }
-}
+};
 
 const verifyOTP = async (req, res, next) => {
   const transaction = await mongoose.startSession();
@@ -79,7 +86,7 @@ const verifyOTP = async (req, res, next) => {
       return throwCustomError(400, "OTP is required");
     }
 
-    const validOTP = await OTP.findOne({ otp }, {session: transaction});
+    const validOTP = await OTP.findOne({ otp }, { session: transaction });
 
     if (!validOTP) {
       return throwCustomError(400, "Invalid OTP");
@@ -89,7 +96,7 @@ const verifyOTP = async (req, res, next) => {
       return throwCustomError(400, "OTP expires");
     }
 
-    const user = await User.findOne({ email }, {session: transaction});
+    const user = await User.findOne({ email }, { session: transaction });
 
     if (!user) {
       return throwCustomError(404, "Email record not found!");
@@ -102,26 +109,33 @@ const verifyOTP = async (req, res, next) => {
     user.isVerify = true;
     await user.save();
 
-    const deleteOTP = await OTP.findOneAndDelete({ otp }, {session: transaction});
+    const deleteOTP = await OTP.findOneAndDelete(
+      { otp },
+      { session: transaction },
+    );
 
     if (!deleteOTP) {
-      return throwCustomError(400, "Something went wrong! Cannot delete the otp");
+      return throwCustomError(
+        400,
+        "Something went wrong! Cannot delete the otp",
+      );
     }
 
     transaction.commitTransaction();
 
     const token = createToken(user._id);
 
-    await sendMail(user.email, "welcome", "Welcome to IAStream", {email: user.email});
+    await sendMail(user.email, "welcome", "Welcome to IAStream", {
+      email: user.email,
+    });
 
     res.status(200).json({ message: "Email Verified!", data: token });
-  }
-  catch (err) {
+  } catch (err) {
     transaction.abortTransaction();
     next(err);
   } finally {
     transaction.endSession();
   }
-}
+};
 
-module.exports = {register, verifyOTP};
+module.exports = { register, verifyOTP };

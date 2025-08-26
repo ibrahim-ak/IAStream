@@ -4,7 +4,7 @@ const OTPSchema = mongoose.Schema(
   {
     user_id: {
       type: mongoose.Types.ObjectId,
-      ref: "User"
+      ref: "User",
     },
     otp: {
       type: String,
@@ -12,13 +12,13 @@ const OTPSchema = mongoose.Schema(
     },
     expireAt: {
       type: Date,
-      required: true
-    }
+      required: true,
+    },
   },
   {
     timestamps: true,
-  }
-)
+  },
+);
 
 const OTP = mongoose.model("OTP", OTPSchema);
 

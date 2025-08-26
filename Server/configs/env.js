@@ -14,9 +14,8 @@ const {
   GMAIL_PASS,
   GMAIL_SERVICE,
   GMAIL_EMAIL,
-  GMAIL_NAME
+  GMAIL_NAME,
 } = process.env;
-
 
 if (!PORT) {
   throw new Error("PORT is not set");
@@ -79,8 +78,8 @@ const config = {
     USER: GMAIL_USER,
     PASS: GMAIL_PASS,
     EMAIL: GMAIL_EMAIL,
-    NAME: GMAIL_NAME
-  }
-}
+    NAME: GMAIL_NAME,
+  },
+};
 
 module.exports = config;
