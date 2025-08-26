@@ -1,7 +1,7 @@
 const User = require("../../modules/user/index.js");
 const { throwCustomError } = require("../../utils/error.js");
 
-const getAllUser = async (req, res, next) => {
+const getAllUser = async (_req, res, next) => {
   try {
     const user = await User.find();
 
