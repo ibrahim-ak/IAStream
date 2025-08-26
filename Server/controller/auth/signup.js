@@ -57,12 +57,10 @@ const register = async (req, res, next) => {
       email: user.email,
     });
 
-    res
-      .status(201)
-      .json({
-        message:
-          "SignUp is successfully! Please check your email for verification",
-      });
+    res.status(201).json({
+      message:
+        "SignUp is successfully! Please check your email for verification",
+    });
   } catch (err) {
     transaction.abortTransaction();
     next(err);
