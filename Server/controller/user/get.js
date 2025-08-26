@@ -10,10 +10,9 @@ const getAllUser = async (_req, res, next) => {
     }
 
     res.status(200).json({ message: "User fetched Successfully", data: user });
-  }
-  catch (err) {
+  } catch (err) {
     next(err);
   }
-}
+};
 
 module.exports = getAllUser;

@@ -1,6 +1,6 @@
 const express = require("express");
 
-const {register, verifyOTP } = require("../../controller/auth/signup.js");
+const { register, verifyOTP } = require("../../controller/auth/signup.js");
 const signin = require("../../controller/auth/login.js");
 
 const router = express.Router({ mergeParams: true });

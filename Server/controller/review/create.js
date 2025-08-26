@@ -14,21 +14,25 @@ const createV1 = async (req, res, next) => {
     if (!userId && !movieId) {
       return throwCustomError(400, "Invalid credentail");
     }
-    
-    const review = await Review.create({ movie_id: movieId, user_id: userId, content: content }, { session: transaction });
+
+    const review = await Review.create(
+      { movie_id: movieId, user_id: userId, content: content },
+      { session: transaction },
+    );
 
     if (!review) {
       return throwCustomError(400, "Cannot create a Review!");
     }
 
-    res.status(201).json({ message: "Review created Successfully!", data: review});
-  }
-  catch (err) {
+    res
+      .status(201)
+      .json({ message: "Review created Successfully!", data: review });
+  } catch (err) {
     transaction.abortTransaction();
     next(err);
   } finally {
     transaction.endSession();
   }
-}
+};
 
 module.exports = createV1;

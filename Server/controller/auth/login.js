@@ -2,8 +2,11 @@ const User = require("../../modules/user/index.js");
 const { throwCustomError } = require("../../utils/error.js");
 const { comparePassword } = require("../../utils/bcrypt.js");
 const { createToken } = require("../../utils/jwt.js");
+const mongoose = require("mongoose");
 
 const signin = async (req, res, next) => {
+  const transaction = await mongoose.startSession();
+  transaction.startTransaction();
   try {
     const { email, password } = req.body;
 
@@ -11,7 +14,7 @@ const signin = async (req, res, next) => {
       return throwCustomError(400, "Please provide email and password");
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }, { session: transaction });
 
     if (!user) {
       return throwCustomError(404, "Email not exists! Please create a new one");
@@ -23,13 +26,16 @@ const signin = async (req, res, next) => {
       return throwCustomError(400, "Invalid password");
     }
 
+    transaction.commitTransaction();
     const token = createToken(user._id);
 
-    res.status(200).json({ message: "Login Successfully!", data: token});
-  }
-  catch (err) {
+    res.status(200).json({ message: "Login Successfully!", data: token });
+  } catch (err) {
+    transaction.abortTransaction();
     next(err);
+  } finally {
+    transaction.endSession();
   }
-}
+};
 
 module.exports = signin;

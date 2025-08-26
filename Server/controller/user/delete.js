@@ -22,10 +22,9 @@ const deleteUser = async (req, res, next) => {
     }
 
     res.status(204).send();
-  }
-  catch (err) {
+  } catch (err) {
     next(err);
   }
-}
+};
 
 module.exports = deleteUser;

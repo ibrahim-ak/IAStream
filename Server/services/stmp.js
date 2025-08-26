@@ -10,8 +10,8 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: env.STMP.USER,
     pass: env.STMP.PASS,
-  }
-})
+  },
+});
 
 const sendMail = async (to, template, subject, context) => {
   const templatePath = path.join(__dirname, "..", "view", `${template}.ejs`);
@@ -23,9 +23,9 @@ const sendMail = async (to, template, subject, context) => {
     to: to,
     subject: subject,
     html: html,
-  })
-  
+  });
+
   logger.info("Sending Message: " + info.messageId);
-}
+};
 
 module.exports = sendMail;

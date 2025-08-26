@@ -27,13 +27,13 @@ const UserSchema = mongoose.Schema(
       type: String,
       enum: ["ADMIN", "USER"],
       required: true,
-      default: "USER"
-    }
+      default: "USER",
+    },
   },
   {
     timestamps: true,
-  }
-)
+  },
+);
 
 const User = mongoose.model("user", UserSchema);
 

@@ -5,6 +5,6 @@ const generateOTP = () => {
     otp += Math.round(Math.random(1) * 10);
   }
   return otp;
-}
+};
 
 module.exports = generateOTP;

@@ -12,7 +12,10 @@ const getByIdV1 = async (req, res, next) => {
       return throwCustomError(400, "Invalid Credential");
     }
 
-    const review = await Review.findOne({ movie_id: movieId, user_id: userId, _id: reviewId}, { session: transaction });
+    const review = await Review.findOne(
+      { movie_id: movieId, user_id: userId, _id: reviewId },
+      { session: transaction },
+    );
 
     if (!review) {
       return throwCustomError(404, "Cannot find the review");
@@ -20,15 +23,15 @@ const getByIdV1 = async (req, res, next) => {
 
     transaction.commitTransaction();
 
-    res.status(200).json({ message: "Review Fetched Successfully!", data: review});
-  }
-  catch (err) {
+    res
+      .status(200)
+      .json({ message: "Review Fetched Successfully!", data: review });
+  } catch (err) {
     transaction.abortTransaction();
     next(err);
-  }
-  finally {
+  } finally {
     transaction.endSession();
   }
-}
+};
 
 module.exports = getByIdV1;

@@ -1,4 +1,4 @@
-const Movie = require('../../modules/movie/index.js');
+const Movie = require("../../modules/movie/index.js");
 
 // @desc    GET all movies
 // @route   GET /api/movies/
@@ -6,16 +6,14 @@ const getMovies = async (req, res, next) => {
   try {
     const allMovies = await Movie.find();
 
-    if (!allMovies)
-    {
-      return res.status(404).json({error: "Movies not Found"});
+    if (!allMovies) {
+      return res.status(404).json({ error: "Movies not Found" });
     }
     res.status(200).json(allMovies);
     console.log("Getting Movies");
-  }
-  catch (err) {
+  } catch (err) {
     next(err);
   }
-}
+};
 
 module.exports = getMovies;
