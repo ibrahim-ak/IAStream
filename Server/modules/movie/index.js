@@ -6,7 +6,15 @@ const MovieSchema = mongoose.Schema(
       type: String,
       required: [true, "Please Enter the Title"],
     },
-    photo: {
+    logo: {
+      type: String,
+      required: true,
+    },
+    big_image: {
+      type: String,
+      required: true,
+    },
+    small_image: {
       type: String,
       required: true,
     },
@@ -15,6 +23,22 @@ const MovieSchema = mongoose.Schema(
       required: true,
     },
     duration: {
+      type: String,
+      required: true,
+    },
+    language: {
+      type: String,
+      required: true,
+    },
+    year: {
+      type: String,
+      required: true,
+    },
+    audio: {
+      type: Array,
+      required: true,
+    },
+    subtitle: {
       type: String,
       required: true,
     },
