@@ -6,6 +6,14 @@ const OTPSchema = mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "User",
     },
+    email: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
     otp: {
       type: String,
       required: true,
