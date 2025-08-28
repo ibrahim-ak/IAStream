@@ -14,7 +14,7 @@ const checkAuthSchema = require("../../validation/auth/index.js");
 const router = express.Router({ mergeParams: true });
 
 router.route("/signin").post(signin);
-router.route("/signup").post(checkSchema(checkAuthSchema) ,register);
+router.route("/signup").post(checkSchema(checkAuthSchema), register);
 router.route("/verify-otp").post(verifyOTP);
 router.route("/email-verify").post(checkEmail);
 router.route("/forgot-otp").post(sendVerifyOTP);

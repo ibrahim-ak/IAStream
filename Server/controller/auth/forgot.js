@@ -8,11 +8,11 @@ const { hashPassword } = require("../../utils/bcrypt");
 
 const checkEmail = async (req, res, next) => {
   const transaction = await mongoose.startSession();
-  transaction.startTransaction();
   try {
+    transaction.startTransaction();
     const { email } = req.body;
 
-    const user = await User.findOne({ email }, { session: transaction });
+    const user = await User.findOne({ email }, null, { session: transaction });
 
     if (!user) {
       return throwCustomError(404, "Cannot find the account");
@@ -24,14 +24,14 @@ const checkEmail = async (req, res, next) => {
 
     const otp_string = generateOTP();
 
-    const otp = OTP.create(
-      {
+    const otp = await OTP.create(
+      [{
         user_id: user._id,
         email: user.email,
         phone: user.phone,
         expireAt: new Date(Date.now() + 1000 * 60 * 10),
-        otp: otp,
-      },
+        otp: otp_string,
+      }],
       { session: transaction },
     );
 
@@ -39,27 +39,27 @@ const checkEmail = async (req, res, next) => {
       return throwCustomError("OTP is not generating!");
     }
 
-    transaction.commitTransaction();
-
     await sendMail(user.email, "auth/forgot", "Forgot Password", {
       name: user.name,
       otp: otp_string,
       email: user.email,
     });
-
+    
+    await transaction.commitTransaction();
+    
     res.status(200).json({ message: "OTP has sent into your email address" });
   } catch (err) {
-    transaction.abortTransaction();
+    await transaction.abortTransaction();
     next(err);
   } finally {
-    transaction.endSession();
+    await transaction.endSession();
   }
 };
 
 const sendVerifyOTP = async (req, res, next) => {
   const transaction = await mongoose.startSession();
-  transaction.startTransaction();
   try {
+    transaction.startTransaction();
     const { email, otp } = req.body;
 
     if (!email) {
@@ -70,17 +70,17 @@ const sendVerifyOTP = async (req, res, next) => {
       return throwCustomError(400, "OTP is required");
     }
 
-    const verifyOTP = await OTP.findOne({ otp }, { session: transaction });
+    const verifyOTP = await OTP.findOne({ otp }, null, { session: transaction });
 
     if (!verifyOTP) {
       return throwCustomError(400, "Invalid OTP");
     }
 
-    if (verifyOTP.expireAt < new Date.now()) {
+    if (verifyOTP.expireAt < new Date()) {
       return throwCustomError(400, "OTP is expired!");
     }
 
-    const user = await User.findOne({ email }, { session: transaction });
+    const user = await User.findOne({ email }, null, { session: transaction });
 
     if (!user) {
       return throwCustomError(404, "Email record is not found!");
@@ -95,28 +95,28 @@ const sendVerifyOTP = async (req, res, next) => {
       return throwCustomError(400, "Something went wrong cannot delete otp");
     }
 
-    transaction.commitTransaction();
+    await transaction.commitTransaction();
 
     res.status(200).json({ message: "OTP is valid!" });
   } catch (err) {
-    transaction.abortTransaction();
+    await transaction.abortTransaction();
     next(err);
   } finally {
-    transaction.endSession();
+    await transaction.endSession();
   }
 };
 
 const forgotPassword = async (req, res, next) => {
   const transaction = await mongoose.startSession();
-  transaction.startTransaction();
   try {
+    transaction.startTransaction();
     const { password, confirmPassword, email } = req.body;
 
     if (!email) {
       return throwCustomError(400, "Email is required");
     }
 
-    const user = await User.findOne({ email }, { session: transaction });
+    const user = await User.findOne({ email }, null, { session: transaction });
 
     if (!user) {
       return throwCustomError(
@@ -139,24 +139,26 @@ const forgotPassword = async (req, res, next) => {
     const hash = hashPassword(confirmPassword);
 
     user.password = hash;
-    await user.save();
+    await user.save({session: transaction});
 
-    transaction.commitTransaction();
+    await transaction.commitTransaction();
 
     res.status(200).json({ message: "Forgot Password Successfully!" });
   } catch (err) {
-    transaction.abortTransaction();
+    await transaction.abortTransaction();
     next(err);
   } finally {
-    transaction.endSession();
+    await transaction.endSession();
   }
 };
 
 const resendOTP = async (req, res, next) => {
+  const transaction = await mongoose.startSession();
   try {
+    transaction.startTransaction();
     const { email } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }, null, {session: transaction});
 
     if (!user) {
       return throwCustomError(
@@ -167,13 +169,13 @@ const resendOTP = async (req, res, next) => {
 
     const otp_string = generateOTP();
 
-    const otp = await OTP.create({
+    const otp = await OTP.create([{
       user_id: user._id,
       email: user.email,
       phone: user.phone,
       otp: otp_string,
       expireAt: new Date(Date.now() + 1000 * 60 * 10),
-    });
+    }], {session: transaction});
 
     if (!otp) {
       return throwCustomError(400, "Cannot send the otp!");
@@ -185,9 +187,15 @@ const resendOTP = async (req, res, next) => {
       email: user.email,
     });
 
+    await transaction.commitTransaction();
+
     res.status(200).json({ message: "OTP has resend successfully" });
   } catch (err) {
+    await transaction.abortTransaction();
     next(err);
+  }
+  finally {
+    await transaction.endSession();
   }
 };
 
