@@ -7,7 +7,7 @@ const authenticate = (req, res, next) => {
     const token = req.headers.authorization;
 
     if (!token) {
-      return throwCustomError(401, "Unauthorized");      
+      return throwCustomError(401, "Unauthorized");
     }
 
     const [, tokenString] = token.split("Bearer ");
@@ -25,11 +25,10 @@ const authenticate = (req, res, next) => {
     req.user = decoded;
 
     next();
-  }
-  catch (err) {
+  } catch (err) {
     logger.error(err);
     res.status(401).json({ message: "Unauthorized" });
   }
-}
+};
 
 export { authenticate };

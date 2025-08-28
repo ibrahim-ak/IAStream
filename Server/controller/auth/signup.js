@@ -9,9 +9,8 @@ const mongoose = require("mongoose");
 
 const register = async (req, res, next) => {
   const transaction = await mongoose.startSession();
+  transaction.startTransaction();
   try {
-    transaction.startTransaction();
-
     const { name, email, phone, password } = req.body;
 
     const existUser = await User.findOne(
@@ -39,6 +38,8 @@ const register = async (req, res, next) => {
     const otp = await OTP.create(
       {
         user_id: user._id,
+        email: user.email,
+        phone: user.phone,
         otp: otp_string,
         expireAt: new Date(Date.now() + 1000 * 60 * 10), // 10 minutes from now
       },
