@@ -17,14 +17,34 @@ const createMovieSchema = {
     trim: true,
   },
 
-  // Photo Validation
-  photo: {
+  // Logo Validation
+  logo: {
     notEmpty: {
-      errorMessage: "Photo cannot be empty",
+      errorMessage: "Logo cannot be empty",
     },
     isString: {
-      errorMessage: "Invalid Photo",
+      errorMessage: "Invalid Logo"
+    }
+  },
+
+  // Big Image Validation
+  big_image: {
+    notEmpty: {
+      errorMessage: "Big Image Cannot be empty"
     },
+    isString: {
+      errorMessage: "Invalid Big Image"
+    }
+  },
+
+  // Small Image Validation
+  small_image: {
+    notEmpty: {
+      errorMessage: "Small Image cannot be empty"
+    },
+    isString: {
+      errorMessage: "Invalid Small Image"
+    }
   },
 
   // Description Validation
@@ -52,6 +72,50 @@ const createMovieSchema = {
     notEmpty: {
       errorMessage: "Duration cannot be empty",
     },
+  },
+
+  // Language Validation
+  language: {
+    isString: {
+      errorMessage: "Invalid Language",
+    },
+    notEmpty: {
+      errorMessage: "Language cannot be empty"
+    }
+  },
+
+  // Year Validation
+  year: {
+    isString: {
+      errorMessage: "Invalid Year",
+    },
+    notEmpty: {
+      errorMessage: "Year cannot be empty"
+    },
+  },
+
+  // Audio Validation
+  audio: {
+    isArray: {
+      options: {
+        min: 1,
+        max: 5,
+      },
+      errorMessage: "Please add at least one audio",
+    },
+    notEmpty: {
+      errorMessage: "Audio cannot be empty"
+    }
+  },
+
+  // Subtitle Validation
+  subtitle: {
+    isString: {
+      errorMessage: "Invalid Subtitle"
+    },
+    notEmpty: {
+      errorMessage: "Subtitle cannot be empty"
+    }
   },
 
   // Actors Validation
