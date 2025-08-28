@@ -62,7 +62,7 @@ app.use(errorHandler);
  *                   example: OK
  */
 app.get("/", (_req, res) => {
-  res.status(200).json({ message: "OK" });
+  res.status(200).json({ message: "OK!" });
 });
 
 /**
@@ -83,7 +83,7 @@ app.get("/", (_req, res) => {
  *                   example: Good!
  */
 app.get("/health-check", (req, res) => {
-  res.status(200).json({ message: "Good!" });
+  res.status(200).json({ message: "Server is running!", data: "Good!" });
 });
 
 connectDB(uri);
@@ -91,3 +91,5 @@ connectDB(uri);
 app.listen(port, () => {
   logger.info(`Listening on port: ${port}`);
 });
+
+module.exports = app;
