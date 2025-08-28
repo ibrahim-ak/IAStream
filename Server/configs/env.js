@@ -16,6 +16,10 @@ const {
   GMAIL_SERVICE,
   GMAIL_EMAIL,
   GMAIL_NAME,
+  CLOUD_NAME,
+  CLOUD_FOLDER,
+  CLOUD_API_KEY,
+  CLOUD_API_SECRET
 } = process.env;
 
 if (!PORT) {
@@ -70,6 +74,22 @@ if (!GMAIL_EMAIL) {
   throw new Error("GMAIL_EMAIL is not set");
 }
 
+if (!CLOUD_NAME) {
+  throw new Error("CLOUD_NAME is not set");
+}
+
+if (!CLOUD_FOLDER) {
+  throw new Error("CLOUD_FOLDER is not set");
+}
+
+if (!CLOUD_API_KEY) {
+  throw new Error("CLOUD_API_KEY is not set");
+}
+
+if (!CLOUD_API_SECRET) {
+  throw new Error("CLOUD_API_SECRET is not set");
+}
+
 const config = {
   PORT: PORT,
   DB_NAME: DB_NAME,
@@ -86,6 +106,14 @@ const config = {
     EMAIL: GMAIL_EMAIL,
     NAME: GMAIL_NAME,
   },
+  CLOUD: {
+    NAME: CLOUD_NAME,
+    FOLDER: CLOUD_FOLDER,
+    API: {
+      KEY: CLOUD_API_KEY,
+      SECRET: CLOUD_API_SECRET
+    },
+  }
 };
 
 module.exports = config;
