@@ -8,8 +8,8 @@ const updateMovie = require("../../controller/movie/update");
 
 const router = express.Router({ mergeParams: true });
 
-router.route("/").get(getMovies).post(postMovie);
+router.route("/:userId/movies/").get(getMovies).post(postMovie);
 
-router.route("/:id").get(getMovie).put(updateMovie).delete(deleteMovie);
+router.route("/:userId/movie/:id").get(getMovie).put(updateMovie).delete(deleteMovie);
 
 module.exports = router;

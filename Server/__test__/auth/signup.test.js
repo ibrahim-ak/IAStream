@@ -1,4 +1,3 @@
 const { describe, it } = require("@jest/globals");
 
-describe("User SignUp Route Test", () => {
-});
+describe("User SignUp Route Test", () => {});
