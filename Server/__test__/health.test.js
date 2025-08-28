@@ -1,11 +1,13 @@
 const { describe, it } = require("@jest/globals");
+const app = require("../server");
+const request = require("supertest");
 
-function sum(a, b) {
-  return a + b;
-}
+describe("GET /health-check", () => {
+  
+  it("Should return statusCode 200", async () => {
+    const res = await request(app).get("/health-check");
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual({message: "Server is running!", data: "Good!"});
+  })
 
-describe("health check", () => {
-  it("should be get health of route", () => {
-    expect(sum(1, 2)).toBe(3);
-  });
-});
+})
