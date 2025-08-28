@@ -7,6 +7,7 @@ const {
   DB_NAME,
   DB_USERNAME,
   DB_PASSWORD,
+  DB_TEST_URI,
   ALLOWED_ORIGIN,
   NODE_ENV,
   JWT_SECRET,
@@ -31,6 +32,10 @@ if (!DB_USERNAME) {
 
 if (!DB_PASSWORD) {
   throw new Error("DB_PASSWORD is not set");
+}
+
+if (!DB_TEST_URI) {
+  throw new Error("DB_TEST_URI is not set");
 }
 
 if (!ALLOWED_ORIGIN) {
@@ -70,6 +75,7 @@ const config = {
   DB_NAME: DB_NAME,
   DB_USERNAME: DB_USERNAME,
   DB_PASSWORD: DB_PASSWORD,
+  TEST_DB: DB_TEST_URI,
   ALLOWED_ORIGIN: ALLOWED_ORIGIN,
   NODE_ENV: NODE_ENV,
   JWT_SECRET: JWT_SECRET,

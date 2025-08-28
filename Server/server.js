@@ -22,9 +22,6 @@ const allowed_origin = env.ALLOWED_ORIGIN;
 // the uri is dynamic you need to change with yours
 const uri = `mongodb+srv://${username}:${pw}@iastreamdb.yi3hnzj.mongodb.net/${DB}?retryWrites=true&w=majority&appName=IAStreamDB`;
 
-// Database access
-require("./configs/db.js");
-
 // Server
 const app = express();
 
@@ -87,9 +84,10 @@ app.get("/health-check", (req, res) => {
 });
 
 connectDB(uri);
+
 // Server connection
-app.listen(port, () => {
+const server = app.listen(port, () => {
   logger.info(`Listening on port: ${port}`);
 });
 
-module.exports = app;
+module.exports = server;

@@ -1,13 +1,21 @@
 const { describe, it } = require("@jest/globals");
-const app = require("../server");
+const server = require("../server");
 const request = require("supertest");
+const mongoose = require('mongoose');
 
 describe("GET /health-check", () => {
+  beforeAll(async () => {
+    await mongoose.connection.close();
+    server.close();
+  })
   
-  it("Should return statusCode 200", async () => {
-    const res = await request(app).get("/health-check");
+  it("Health Check Test 1 - should return statusCode '200'", async () => {
+    const res = await request(server).get("/health-check");
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toEqual({message: "Server is running!", data: "Good!"});
   })
 
+  it("Health Check Test 2 - should return message 'Server is running!'", async () => {
+    const res = await request(server).get("/health-check");
+    expect(res.body).toEqual({ message: "Server is running!", data: "Good!"});
+  })
 })
