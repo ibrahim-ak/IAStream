@@ -11,17 +11,18 @@ const { validationResult } = require("express-validator");
 
 const register = async (req, res, next) => {
   const transaction = await mongoose.startSession();
-  transaction.startTransaction();
   try {
-    const { name, email, phone, password } = matchedData(req);
+    transaction.startTransaction();
+    const data = matchedData(req);
     const validationError = validationResult(req);
-
+    
     if (!validationError.isEmpty()) {
-      return throwCustomError(400, validationError.array()[0]);
+      return throwCustomError(400, validationError.array()[0].msg);
     }
 
     const existUser = await User.findOne(
-      { email: email },
+      { email: data.email },
+      null,
       { session: transaction },
     );
 
@@ -29,10 +30,10 @@ const register = async (req, res, next) => {
       return throwCustomError(400, "Email already registered! Please signin");
     }
 
-    const hash = hashPassword(password);
+    const hash = hashPassword(data.password);
 
     const user = await User.create(
-      { name, email, phone, password: hash },
+     [{ name: data.name, email: data.email, phone: data.phone, password: hash }],
       { session: transaction },
     );
 
@@ -43,13 +44,13 @@ const register = async (req, res, next) => {
     const otp_string = generateOTP();
 
     const otp = await OTP.create(
-      {
+      [{
         user_id: user._id,
-        email: user.email,
-        phone: user.phone,
+        email: data.email,
+        phone: data.phone,
         otp: otp_string,
         expireAt: new Date(Date.now() + 1000 * 60 * 10), // 10 minutes from now
-      },
+      }],
       { session: transaction },
     );
 
@@ -57,23 +58,23 @@ const register = async (req, res, next) => {
       return throwCustomError(400, "Something went wrong! OTP is not created");
     }
 
-    await transaction.commitTransaction();
-
-    await sendMail(user.email, "auth/signup", "Verify Your Email", {
-      name: user.name,
+    await sendMail(data.email, "auth/signup", "Verify Your Email", {
+      name: data.name,
       otp: otp_string,
-      email: user.email,
+      email: data.email,
     });
+    
+    await transaction.commitTransaction();
 
     res.status(201).json({
       message:
         "SignUp is successfully! Please check your email for verification",
     });
   } catch (err) {
-    transaction.abortTransaction();
+    await transaction.abortTransaction();
     next(err);
   } finally {
-    transaction.endSession();
+    await transaction.endSession();
   }
 };
 
@@ -92,7 +93,7 @@ const verifyOTP = async (req, res, next) => {
       return throwCustomError(400, "OTP is required");
     }
 
-    const validOTP = await OTP.findOne({ otp }, { session: transaction });
+    const validOTP = await OTP.findOne({ otp }, null, { session: transaction });
 
     if (!validOTP) {
       return throwCustomError(400, "Invalid OTP");
@@ -102,7 +103,7 @@ const verifyOTP = async (req, res, next) => {
       return throwCustomError(400, "OTP expires");
     }
 
-    const user = await User.findOne({ email }, { session: transaction });
+    const user = await User.findOne({ email }, null, { session: transaction });
 
     if (!user) {
       return throwCustomError(404, "Email record not found!");
@@ -127,20 +128,20 @@ const verifyOTP = async (req, res, next) => {
       );
     }
 
-    transaction.commitTransaction();
-
     const token = createToken(user._id);
-
+    
     await sendMail(user.email, "welcome", "Welcome to IAStream", {
+      name: user.name,
       email: user.email,
     });
-
+    
+    await transaction.commitTransaction();
     res.status(200).json({ message: "Email Verified!", data: token });
   } catch (err) {
-    transaction.abortTransaction();
+    await transaction.abortTransaction();
     next(err);
   } finally {
-    transaction.endSession();
+    await transaction.endSession();
   }
 };
 

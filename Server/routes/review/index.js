@@ -10,7 +10,10 @@ const createReviewSchema = require("../../validation/review/index");
 const router = express.Router({ mergeParams: true });
 
 // Auth Routes
-router.route("/user/:userId/movie/:movieId").get(getV1).post(checkSchema(createReviewSchema), createV1);
+router
+  .route("/user/:userId/movie/:movieId")
+  .get(getV1)
+  .post(checkSchema(createReviewSchema), createV1);
 
 router
   .route("/user/:userId/movie/:movieId/review/:reviewId")

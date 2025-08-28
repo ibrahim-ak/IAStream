@@ -1,8 +1,8 @@
 const generateOTP = () => {
   let otp = "";
 
-  for (let i = 0; i < 5; i++) {
-    otp += Math.round(Math.random(1) * 10);
+  for (let i = 0; i < 6; i++) {
+    otp += Math.round(Math.random() * 10);
   }
   return otp;
 };

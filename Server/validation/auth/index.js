@@ -26,8 +26,14 @@ const createAuthSchema = {
   },
   phone: {
     isMobilePhone: {
-      options: ["any", { strictMode: true }],
+      options: ["any"],
       errorMessage: "Please enter a valid phone number",
+    },
+    isLength: {
+      options: {
+        max: 10,
+      },
+      errorMessage: "Invalid Phone Number",
     },
     notEmpty: {
       errorMessage: "Phone number cannot be empty",
@@ -39,7 +45,7 @@ const createAuthSchema = {
       errorMessage: "Password must be at least 8 characters",
     },
     matches: {
-      options: /^?=.*[A-Z]/,
+      options: /^(?=.*[A-Z])/,
       errorMessage: "Password must contain at least one uppercase letter",
     },
     matches: {

@@ -11,8 +11,15 @@ const permission = require("../../middleware/permission");
 
 const router = express.Router({ mergeParams: true });
 
-router.route("/user/:userId/movies/").get(getMovies).post(permission ,checkSchema(createMovieSchema), postMovie);
+router
+  .route("/user/:userId/movies/")
+  .get(getMovies)
+  .post(permission, checkSchema(createMovieSchema), postMovie);
 
-router.route("/user/:userId/movie/:id").get(getMovie).put(permission, updateMovie).delete(permission, deleteMovie);
+router
+  .route("/user/:userId/movie/:id")
+  .get(getMovie)
+  .put(permission, updateMovie)
+  .delete(permission, deleteMovie);
 
 module.exports = router;

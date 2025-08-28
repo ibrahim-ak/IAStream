@@ -31,4 +31,4 @@ const authenticate = (req, res, next) => {
   }
 };
 
-export { authenticate };
+module.exports = authenticate;

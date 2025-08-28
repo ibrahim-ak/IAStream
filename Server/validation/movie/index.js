@@ -23,28 +23,28 @@ const createMovieSchema = {
       errorMessage: "Logo cannot be empty",
     },
     isString: {
-      errorMessage: "Invalid Logo"
-    }
+      errorMessage: "Invalid Logo",
+    },
   },
 
   // Big Image Validation
   big_image: {
     notEmpty: {
-      errorMessage: "Big Image Cannot be empty"
+      errorMessage: "Big Image Cannot be empty",
     },
     isString: {
-      errorMessage: "Invalid Big Image"
-    }
+      errorMessage: "Invalid Big Image",
+    },
   },
 
   // Small Image Validation
   small_image: {
     notEmpty: {
-      errorMessage: "Small Image cannot be empty"
+      errorMessage: "Small Image cannot be empty",
     },
     isString: {
-      errorMessage: "Invalid Small Image"
-    }
+      errorMessage: "Invalid Small Image",
+    },
   },
 
   // Description Validation
@@ -55,7 +55,7 @@ const createMovieSchema = {
     notEmpty: {
       errorMessage: "Description cannot be empty",
     },
-    isLenght: {
+    isLength: {
       options: {
         min: 10,
         max: 1000,
@@ -80,8 +80,8 @@ const createMovieSchema = {
       errorMessage: "Invalid Language",
     },
     notEmpty: {
-      errorMessage: "Language cannot be empty"
-    }
+      errorMessage: "Language cannot be empty",
+    },
   },
 
   // Year Validation
@@ -90,7 +90,7 @@ const createMovieSchema = {
       errorMessage: "Invalid Year",
     },
     notEmpty: {
-      errorMessage: "Year cannot be empty"
+      errorMessage: "Year cannot be empty",
     },
   },
 
@@ -104,18 +104,18 @@ const createMovieSchema = {
       errorMessage: "Please add at least one audio",
     },
     notEmpty: {
-      errorMessage: "Audio cannot be empty"
-    }
+      errorMessage: "Audio cannot be empty",
+    },
   },
 
   // Subtitle Validation
   subtitle: {
     isString: {
-      errorMessage: "Invalid Subtitle"
+      errorMessage: "Invalid Subtitle",
     },
     notEmpty: {
-      errorMessage: "Subtitle cannot be empty"
-    }
+      errorMessage: "Subtitle cannot be empty",
+    },
   },
 
   // Actors Validation

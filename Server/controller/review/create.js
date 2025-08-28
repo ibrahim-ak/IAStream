@@ -14,7 +14,7 @@ const createV1 = async (req, res, next) => {
     const data = matchedData(req);
 
     if (!validationError.isEmpty()) {
-      return throwCustomError(400, validationError.array()[0]);
+      return throwCustomError(400, validationError.array()[0].msg);
     }
 
     if (!userId && !movieId) {

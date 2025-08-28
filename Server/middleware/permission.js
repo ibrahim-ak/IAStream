@@ -20,10 +20,9 @@ const permission = async (req, res, next) => {
     }
 
     next();
+  } catch (err) {
+    res.status(403).json({ message: "User is not an Administrator" });
   }
-  catch (err) {
-    res.status(403).json({ message: "User is not an Administrator"});
-  }
-}
+};
 
 module.exports = permission;

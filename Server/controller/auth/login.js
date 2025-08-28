@@ -14,7 +14,7 @@ const signin = async (req, res, next) => {
       return throwCustomError(400, "Please provide email and password");
     }
 
-    const user = await User.findOne({ email }, { session: transaction });
+    const user = await User.findOne({ email }, null, { session: transaction });
 
     if (!user) {
       return throwCustomError(404, "Email not exists! Please create a new one");
@@ -26,15 +26,15 @@ const signin = async (req, res, next) => {
       return throwCustomError(400, "Invalid password");
     }
 
-    transaction.commitTransaction();
     const token = createToken(user._id);
-
+    
+    await transaction.commitTransaction();
     res.status(200).json({ message: "Login Successfully!", data: token });
   } catch (err) {
-    transaction.abortTransaction();
+    await transaction.abortTransaction();
     next(err);
   } finally {
-    transaction.endSession();
+    await transaction.endSession();
   }
 };
 

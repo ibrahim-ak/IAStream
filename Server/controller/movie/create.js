@@ -8,7 +8,7 @@ const postMovie = async (req, res, next) => {
     const validationError = validationResult(req);
 
     if (!validationError.isEmpty()) {
-      return throwCustomError(400, validationError.array()[0]);
+      return throwCustomError(400, validationError.array()[0].msg);
     }
 
     const addMovie = await Movie.create(data);
