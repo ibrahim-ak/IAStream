@@ -6,12 +6,19 @@ const { createToken } = require("../../utils/jwt.js");
 const generateOTP = require("../../utils/generate-otp.js");
 const sendMail = require("../../services/stmp.js");
 const mongoose = require("mongoose");
+const { matchedData } = require("express-validator");
+const { validationResult } = require("express-validator");
 
 const register = async (req, res, next) => {
   const transaction = await mongoose.startSession();
   transaction.startTransaction();
   try {
-    const { name, email, phone, password } = req.body;
+    const { name, email, phone, password } = matchedData(req);
+    const validationError = validationResult(req);
+
+    if (!validationError.isEmpty()) {
+      return throwCustomError(400, validationError.array()[0]);
+    }
 
     const existUser = await User.findOne(
       { email: email },
