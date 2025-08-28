@@ -1,13 +1,22 @@
-const request = require("supertest");
-const app = require("../server.js");
 const { describe, it } = require("@jest/globals");
+const server = require("../server");
+const request = require("supertest");
+const mongoose = require('mongoose');
 
 describe("GET /", () => {
-
-  it("Should return statusCode 200", async () => {
-    const res = await request(app).get("/");
+  beforeAll(async () => {
+    await mongoose.connection.close();
+    server.close();
+  })
+  
+  it("Start Route Test 1 - Should Return 'OK!'", async () => {
+    const res = await request(server).get("/");
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toEqual({ message: "OK!" });
+  })
+
+  it("Start Route Test 2 - Should Return 'OK!'", async () => {
+    const res = await request(server).get("/");
+    expect(res.body).toEqual({ message: "OK!"});
   })
 
 })
