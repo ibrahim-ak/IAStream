@@ -1,5 +1,8 @@
+const { ObjectId } = require('mongodb');
+
 const userMocks = [
   {
+    _id: new ObjectId(),
     name: "Alice Smith",
     email: "alice@example.com",
     phone: "1112223333",
@@ -8,6 +11,7 @@ const userMocks = [
     role: "USER",
   },
   {
+    _id: new ObjectId(),
     name: "Bob Johnson",
     email: "bob@example.com",
     phone: "2223334444",
@@ -16,6 +20,7 @@ const userMocks = [
     role: "USER",
   },
   {
+    _id: new ObjectId(),
     name: "Charlie Brown",
     email: "charlie@example.com",
     phone: "3334445555",
@@ -24,6 +29,7 @@ const userMocks = [
     role: "ADMIN",
   },
   {
+    _id: new ObjectId(),
     name: "Diana Prince",
     email: "diana@example.com",
     phone: "4445556666",
@@ -32,6 +38,7 @@ const userMocks = [
     role: "USER",
   },
   {
+    _id: new ObjectId(),
     name: "Ethan Hunt",
     email: "ethan@example.com",
     phone: "5556667777",
