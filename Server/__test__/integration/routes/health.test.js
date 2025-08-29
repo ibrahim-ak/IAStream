@@ -1,5 +1,5 @@
 const { describe, it } = require("@jest/globals");
-const server = require("../server");
+const server = require("../../../server");
 const request = require("supertest");
 const mongoose = require('mongoose');
 
