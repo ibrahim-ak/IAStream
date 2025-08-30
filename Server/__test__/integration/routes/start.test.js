@@ -4,10 +4,6 @@ const request = require("supertest");
 const mongoose = require('mongoose');
 
 describe("GET /", () => {
-  beforeAll(async () => {
-    await mongoose.connection.close();
-    server.close();
-  })
   
   it("Start Route Test 1 - Should Return 'OK!'", async () => {
     const res = await request(server).get("/");
@@ -18,5 +14,9 @@ describe("GET /", () => {
     const res = await request(server).get("/");
     expect(res.body).toEqual({ message: "OK!"});
   })
-
+  
+  afterAll(async () => {
+    await mongoose.connection.close();
+    server.close();
+  })
 })
