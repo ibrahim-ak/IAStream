@@ -1,8 +1,8 @@
-import React from "react";
-import Button from "./Button";
+import CustomButton from "../custom-button";
 import { GoChevronRight } from 'react-icons/go';
 import { GrFormClose } from "react-icons/gr";
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const PopUp = ({serial, iconSrc, bgSrc, name, year, mature, category, type, description, OnClose}) => {
   return (
@@ -33,7 +33,7 @@ const PopUp = ({serial, iconSrc, bgSrc, name, year, mature, category, type, desc
             <div className="pt-4 text-lg h-[100px]">{description}</div>
           
           <div className="pt-4">
-          <Link to={'/signup'}><Button title="Get Started" classBtn={'px-6 py-2 bg-red-600 font-semibold text-xl hover:bg-red-700 transition-all duration-500 gap-2'} RightIcon={<GoChevronRight size={32} />} /></Link>
+          <Link to={'/auth/signup'}><CustomButton title="Get Started" classBtn={'px-6 py-2 bg-red-600 font-semibold text-xl hover:bg-red-700 transition-all duration-500 gap-2'} RightIcon={<GoChevronRight size={32} />} /></Link>
           <p>Create or restart your membership</p>
           </div>
       </div>
@@ -42,5 +42,17 @@ const PopUp = ({serial, iconSrc, bgSrc, name, year, mature, category, type, desc
     </div>
   )
 }
+PopUp.propTypes = {
+  serial: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  iconSrc: PropTypes.string.isRequired,
+  bgSrc: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  mature: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  category: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  OnClose: PropTypes.func.isRequired,
+};
 
 export default PopUp;

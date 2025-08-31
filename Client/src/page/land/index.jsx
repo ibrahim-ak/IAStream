@@ -1,9 +1,9 @@
 // Component
-import Hero from "../../components/Hero";
-import DefaultCard from "../../components/DefaultCard";
-import Reasons from "../../components/Reasons";
-import FAQ from "../../components/FAQ";
-import MemberShip from "../../components/MemberShip";
+import Hero from "../../components/hero";
+import DefaultCard from "../../components/default-card";
+import Reasons from "../../components/reasons";
+import FAQ from "../../components/faq";
+import MemberShip from "../../components/membership";
 
 // Data 
 import movieData from '../../assets/data/movie_image/movieImage';

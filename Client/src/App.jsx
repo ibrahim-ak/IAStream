@@ -2,14 +2,14 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import SignInPage from './page/auth/signin/index';
 import LandPage from './page/land/index';
 import SignUpPage from './page/auth/signup/index';
-import Footer from './components/Footer';
-import NavBar from './components/NavBar';
+import Footer from './components/footer';
+import NavBar from './components/nav-bar';
 import ForgotPasswordPage from './page/auth/forgot';
 
 function App() {
   const ShowNavBar = () => {
     const location = useLocation();
-    const locations = ["/signin", "/signup", "/forgot"];
+    const locations = ["/auth/signin", "/auth/signup", "/auth/forgot"];
     const hideNavBar = locations.includes(location.pathname);
     return !hideNavBar ? <NavBar /> : null;
   }
@@ -20,9 +20,9 @@ function App() {
     <Routes>
 
       <Route path='/' element={<LandPage />} />
-      <Route path='/signin' element={<SignInPage />} />
-      <Route path='/signup' element={<SignUpPage />} />
-      <Route path='/forgot' element={<ForgotPasswordPage />}/>
+      <Route path='/auth/signin' element={<SignInPage />} />
+      <Route path='/auth/signup' element={<SignUpPage />} />
+      <Route path='/auth/forgot' element={<ForgotPasswordPage />}/>
 
     </Routes>
 

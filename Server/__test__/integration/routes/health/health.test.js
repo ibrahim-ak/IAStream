@@ -1,5 +1,5 @@
 const { describe, it } = require("@jest/globals");
-const server = require("../../../server");
+const server = require("../../../../server");
 const request = require("supertest");
 const mongoose = require('mongoose');
 
@@ -18,8 +18,8 @@ describe("GET /health-check", () => {
     expect(res.body).toEqual({ message: "Server is running!", data: "Good!"});
   })
 
-  afterAll(async () => {
-    await mongoose.connection.close();
+  afterEach(async () => {
     server.close();
+    await mongoose.connection.close();
   })
 })

@@ -1,4 +1,4 @@
-import hero from "../assets/icons/hero.mp4";
+import hero from "../../assets/icons/hero.mp4";
 import { useRef, useState } from "react";
 
 const Hero = () => {

@@ -1,6 +1,6 @@
-import LoginImage from '../assets/icons/LoginImage.jpg';
-import IA from "../assets/icons/IA";
-import IASTREAM from "../assets/icons/IASTREAM";
+import LoginImage from '../../assets/icons/signup-bg.jpg';
+import IA from "../../assets/icons/IA";
+import IASTREAM from "../../assets/icons/IASTREAM";
 import { useState } from 'react';
 
 const ForgotPassword = () => {
@@ -43,7 +43,7 @@ const ForgotPassword = () => {
         return (
           <>
             <p className='text-sm mb-3'>Your password has been reset successfully. You can now login with your new password.</p>
-            <button className="rounded-md bg-red-600 text-lg font-semibold py-2 hover:bg-red-700 transition-all duration-500" onClick={() => setStep(2)}><a href='/signin'>Sign In</a></button>
+            <button className="rounded-md bg-red-600 text-lg font-semibold py-2 hover:bg-red-700 transition-all duration-500" onClick={() => setStep(2)}><a href='/auth/signin'>Sign In</a></button>
           </>
         )
     }
@@ -67,7 +67,7 @@ const ForgotPassword = () => {
               <h1 className="text-4xl font-bold my-3">{title[step]}</h1>
               {renderStepContent()}
 
-            <p className="text-sm opacity-90 my-5">Remember Your Password? <a href={'/signin'}><span className="font-semibold opacity-100 cursor-pointer">Sign In.</span></a></p>
+            <p className="text-sm opacity-90 my-5">Remember Your Password? <a href={'/auth/signin'}><span className="font-semibold opacity-100 cursor-pointer">Sign In.</span></a></p>
 
             <p className="text-l_sm">This page is protected by Google reCAPTCHA to ensure you&apos;re not a bot. <span className="text-blue-500">Learn more.</span></p>
           </div>

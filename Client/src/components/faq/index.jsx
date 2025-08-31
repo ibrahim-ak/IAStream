@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import faq from '../assets/data/faq.js';
+import { useState } from "react";
+import faq from '../../assets/data/faq.js';
 import { GrAdd, GrClose } from 'react-icons/gr';
 
 const FAQ = () => {

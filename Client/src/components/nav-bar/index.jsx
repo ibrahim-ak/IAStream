@@ -1,8 +1,7 @@
-import React from "react";
-import Button from './Button';
+import CustomButton from '../custom-button';
 import { Link } from "react-router-dom";
-import IA from '../assets/icons/IA';
-import IASTREAM from "../assets/icons/IASTREAM";
+import IA from '../../assets/icons/IA';
+import IASTREAM from "../../assets/icons/IASTREAM";
 
 const NavBar = () => {
   return (
@@ -19,7 +18,7 @@ const NavBar = () => {
         </select>
         </div>
         <div>
-       <Link to={'/signin'}><Button title="Sign In" classBtn={'px-4 py-1 bg-white text-black font-semibold text-sm hover:bg-gray-300 transition-all duraiton-500'} /></Link> 
+       <Link to={'/auth/signin'}><CustomButton title="Sign In" classBtn={'px-4 py-1 bg-white text-black font-semibold text-sm hover:bg-gray-300 transition-all duraiton-500'} /></Link> 
         </div>
       </div>
     </div>

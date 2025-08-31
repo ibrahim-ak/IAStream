@@ -1,6 +1,6 @@
-import LoginImage from '../assets/icons/LoginImage.jpg';
-import IA from "../assets/icons/IA";
-import IASTREAM from "../assets/icons/IASTREAM";
+import LoginImage from '../../assets/icons/signup-bg.jpg';
+import IA from "../../assets/icons/IA";
+import IASTREAM from "../../assets/icons/IASTREAM";
 import { useState } from 'react';
 
 const SignUp = () => {
@@ -26,7 +26,7 @@ const SignUp = () => {
               <input type="checkbox" className="w-4" /> <p className="text-sm">Remeber me</p>
             </div>
 
-            <p className="text-sm opacity-90 my-5">Already have an IAStream account? <a href={'/signin'}><span className="font-semibold opacity-100 cursor-pointer">Sign In.</span></a></p>
+            <p className="text-sm opacity-90 my-5">Already have an IAStream account? <a href={'/auth/signin'}><span className="font-semibold opacity-100 cursor-pointer">Sign In.</span></a></p>
           </>
         )
       case 1:
