@@ -1,11 +1,10 @@
 const { describe, it } = require("@jest/globals");
-const server = require("../../../server");
+const server = require("../../../../server");
 const request = require("supertest");
 const mongoose = require('mongoose');
 
 describe("GET /health-check", () => {
   beforeAll(async () => {
-    await mongoose.connection.close();
     server.close();
   })
   
@@ -17,5 +16,10 @@ describe("GET /health-check", () => {
   it("Health Check Test 2 - should return message 'Server is running!'", async () => {
     const res = await request(server).get("/health-check");
     expect(res.body).toEqual({ message: "Server is running!", data: "Good!"});
+  })
+
+  afterEach(async () => {
+    server.close();
+    await mongoose.connection.close();
   })
 })

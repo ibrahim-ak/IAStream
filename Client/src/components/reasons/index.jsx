@@ -1,8 +1,7 @@
-import React from "react";
-import StarHand from '../assets/icons/StarHand.jsx';
-import ShakeHand from '../assets/icons/ShakeHand.jsx';
-import Monitor from '../assets/icons/Monitor.jsx';
-import Heart from '../assets/icons/Heart.jsx';
+import StarHand from '../../assets/icons/StarHand.jsx';
+import ShakeHand from '../../assets/icons/ShakeHand.jsx';
+import Monitor from '../../assets/icons/Monitor.jsx';
+import Heart from '../../assets/icons/Heart.jsx';
 
 const reason = [
   {

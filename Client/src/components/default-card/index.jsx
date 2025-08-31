@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import PopUp from "./PopUp";
+import { useState } from "react";
+import PopUp from "../popup";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import PropTypes from "prop-types";
 
 const DefaultCard = ({title, content, movieData}) => {
   const [CardPopUp, setCardPopUp] = useState(false);
@@ -98,9 +99,10 @@ const DefaultCard = ({title, content, movieData}) => {
   )
 }
 
+DefaultCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  movieData: PropTypes.array.isRequired,
+};
+
 export default DefaultCard;
-
-    {/*  */}
-
-
-          {/*  */}
